@@ -1,4 +1,4 @@
-# medical-doc-manager
+
 # 医療ドキュメントマネージャー
 
 ## 概要
