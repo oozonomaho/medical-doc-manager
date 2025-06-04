@@ -12,3 +12,4 @@ VITE_API_BASE_URL=<URL of your API server>
 
 For local development it defaults to `http://localhost:3001`.
 
+
