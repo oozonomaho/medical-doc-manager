@@ -18,6 +18,7 @@ export interface MedicalCertificate {
     docsHanded?: boolean;
     docsReceived?: boolean;
     docsSent?: boolean;
+    requestSent?: boolean;
   };
   createdAt: string;
   updatedAt: string;

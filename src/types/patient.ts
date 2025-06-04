@@ -1,4 +1,5 @@
 import { InsuranceType, PatientStatus } from './enums';
+import type { MedicalCertificate as Certificate } from './certificate';
 
 
 export interface CertificateStatus {
@@ -10,21 +11,7 @@ export interface CertificateStatus {
   status: 'ACTIVE' | 'ONHOLD' | 'EXPIRED'; // ← 新構造
 }
 
-export interface MedicalCertificate {
-  needsCertificate?: boolean;
-  sendDate?: string;
-  initialStartDate?: string; // ← ここに移動
-  grade?: string;            // ← ここに移動
-  limitAmount?: string;      // ← ここに移動
-
-  progress?: {
-    docsReady?: boolean;
-    docsHanded?: boolean;
-    docsReceived?: boolean;
-    docsSent?: boolean;
-    requestSent?: boolean;
-  };
-}
+export { Certificate as MedicalCertificate };
 
 
 export interface Patient {
