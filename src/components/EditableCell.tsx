@@ -34,6 +34,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
     }
   }, [isEditing]);
 
+  useEffect(() => setEditValue(value), [value]);
+
   const handleClick = () => {
     setIsEditing(true);
   };
