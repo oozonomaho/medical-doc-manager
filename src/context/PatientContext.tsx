@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Patient, LifeInsuranceRecord } from '../types/patient';
 import { useEffect } from 'react';
-import { MedicalCertificate } from '../types/certificate'; // 
+import { MedicalCertificate } from '../types/certificate'; //
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 interface PendingClaim {
   id: string;
@@ -85,7 +87,7 @@ const [stoppedPatients, setStoppedPatients] = useState<Patient[]>([]);
 
   await getCertificates();
 
-  const res = await fetch('http://localhost:3001/patients');
+  const res = await fetch(`${API_BASE_URL}/patients`);
   const data: Patient[] = await res.json();
 
   console.log('🟦 DB患者データ取得:', data);
@@ -138,7 +140,7 @@ useEffect(() => {
 
   const getLifeInsuranceRecords = async () => {
     try {
-      const res = await fetch('http://localhost:3001/life-insurance');
+      const res = await fetch(`${API_BASE_URL}/life-insurance`);
       const data = await res.json();
       setLifeInsuranceRecords(data);
     } catch (err) {
@@ -148,7 +150,7 @@ useEffect(() => {
   
   const saveLifeInsuranceRecord = async (record: LifeInsuranceRecord) => {
     try {
-      const res = await fetch('http://localhost:3001/life-insurance', {
+      const res = await fetch(`${API_BASE_URL}/life-insurance`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(record)
@@ -162,7 +164,7 @@ useEffect(() => {
   };
   const updateLifeInsuranceRecordAPI = async (id: string, updates: Partial<LifeInsuranceRecord>) => {
     try {
-      const res = await fetch(`http://localhost:3001/life-insurance/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/life-insurance/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates)
@@ -176,7 +178,7 @@ useEffect(() => {
   };
   const deleteLifeInsuranceRecord = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:3001/life-insurance/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/life-insurance/${id}`, {
         method: 'DELETE'
       });
       const result = await res.json();
@@ -191,8 +193,8 @@ useEffect(() => {
 const getCertificates = async (patientId?: string) => {
   try {
     const url = patientId
-      ? `http://localhost:3001/certificates?patientId=${patientId}`
-      : 'http://localhost:3001/certificates';
+      ? `${API_BASE_URL}/certificates?patientId=${patientId}`
+      : `${API_BASE_URL}/certificates`;
 
     const res = await fetch(url);
     const data = await res.json();
@@ -206,7 +208,7 @@ const getCertificates = async (patientId?: string) => {
 };
 const getCertificatesDirect = async (patientId: string): Promise<MedicalCertificate[]> => {
   try {
-    const url = `http://localhost:3001/certificates?patientId=${patientId}`;
+    const url = `${API_BASE_URL}/certificates?patientId=${patientId}`;
     const res = await fetch(url);
     return await res.json();
   } catch (err) {
@@ -245,8 +247,8 @@ const isUpdate = latestCertificates.some(c =>
   console.log('[createOrUpdateCertificate] isUpdate:', isUpdate);
 
   const url = isUpdate
-    ? `http://localhost:3001/certificates/${certificate.id}`
-    : `http://localhost:3001/certificates`;
+    ? `${API_BASE_URL}/certificates/${certificate.id}`
+    : `${API_BASE_URL}/certificates`;
   const method = isUpdate ? 'PUT' : 'POST';
 
   try {
@@ -270,7 +272,7 @@ const isUpdate = latestCertificates.some(c =>
   
   const updateCertificate = async (id: string, certificate: Partial<MedicalCertificate>) => {
     try {
-      const res = await fetch(`http://localhost:3001/certificates/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/certificates/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(certificate)
@@ -287,7 +289,7 @@ const isUpdate = latestCertificates.some(c =>
   
   const deleteCertificate = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:3001/certificates/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/certificates/${id}`, {
         method: 'DELETE'
       });
   
@@ -399,7 +401,7 @@ const isUpdate = latestCertificates.some(c =>
   const updatePatient = async (updated: Patient) => {
      console.log('🟦 updatePatient呼び出し:', updated);
     try {
-      const res = await fetch('http://localhost:3001/patients', {
+      const res = await fetch(`${API_BASE_URL}/patients`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -464,7 +466,7 @@ setTimeout(() => console.log('🟪 patients最新:', patients), 200);
     // サーバーに削除リクエストを送る
     for (const id of patientIds) {
       try {
-        const res = await fetch(`http://localhost:3001/patients/${id}`, {
+        const res = await fetch(`${API_BASE_URL}/patients/${id}`, {
           method: 'DELETE'
         });
   
