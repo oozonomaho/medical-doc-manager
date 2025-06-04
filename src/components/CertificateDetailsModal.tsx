@@ -429,7 +429,10 @@ const handleDateChange = async (
 
   const formatted = value ? `${value}T00:00:00Z` : undefined;
 
-  if (target === 'medical') {
+  if (target === 'status') {
+    (status as any)[field] = formatted ?? value ?? undefined;
+    updatedPatient[statusKey] = status;
+  } else if (target === 'medical') {
     if (field === 'needsCertificate') {
       cert.needsCertificate = value === '要';
     } else if (field === 'startDate') {
