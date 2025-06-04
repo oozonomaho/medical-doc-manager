@@ -422,12 +422,26 @@ const handleDateChange = async (
   const certKey = `${type}MedicalCertificate` as keyof Patient;
   const statusKey = `${type}Status` as keyof Patient;
 
-  const cert = updatedPatient[certKey] as MedicalCertificate;
+  let cert = updatedPatient[certKey] as MedicalCertificate | undefined;
   const status = updatedPatient[statusKey] as CertificateStatus;
 
   if (!cert) {
-    console.warn('⚠️ certが存在しません:', certKey);
-    return;
+    console.warn('⚠️ cert が undefined なので初期化するよ！');
+    updatedPatient[certKey] = {
+      id: `${normalizedPatient.id}-${type}`,
+      patientId: normalizedPatient.id,
+      type: (() => {
+        if (type === 'selfSupport') return '自立支援';
+        if (type === 'disability') return '手帳';
+        return '年金';
+      })(),
+      progress: {},
+      needsCertificate: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    } as any;
+
+    cert = updatedPatient[certKey] as MedicalCertificate;
   }
 
   const formatted = value ? `${value}T00:00:00Z` : undefined;
