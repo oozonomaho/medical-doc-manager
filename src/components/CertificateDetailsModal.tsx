@@ -109,9 +109,12 @@ onSwitchToNewApplication: () => void;
         <div className="flex items-center space-x-2">
           {showGrade && (
             <EditableCell
-              value={status?.grade || ''}
-              onChange={(value) => {console.log('[UpdateManagementCard] EditableCell→onChange:', 
-                { target: 'status', field: 'grade', value });onChange('status', 'grade', value)}}
+              value={medical?.grade || ''}
+              onChange={(value) => {
+                console.log('[UpdateManagementCard] EditableCell→onChange:', {
+                  target: 'medical', field: 'grade', value });
+                onChange('medical', 'grade', value);
+              }}
               type="select"
               options={gradeOptions}
               placeholder="等級"
@@ -169,8 +172,8 @@ onSwitchToNewApplication: () => void;
           <div className="flex-1">
             <label className="block text-gray-600 text-sm mb-1">初回利用開始日</label>
             <EditableCell
-              value={status?.initialStartDate?.split('T')[0] || ''}
-              onChange={(value) => onChange('status', 'initialStartDate', value)}
+              value={medical?.initialStartDate?.split('T')[0] || ''}
+              onChange={(value) => onChange('medical', 'initialStartDate', value)}
               type="date"
               className="w-full"
               allowEmpty
@@ -180,8 +183,8 @@ onSwitchToNewApplication: () => void;
             <div>
               <label className="block text-gray-600 text-sm mb-1">限度額</label>
               <EditableCell
-                value={status?.limitAmount || ''}
-                onChange={(value) => onChange('status', 'limitAmount', value)}
+                value={medical?.limitAmount || ''}
+                onChange={(value) => onChange('medical', 'limitAmount', value)}
                 type="select"
                 options={limitAmounts}
                 placeholder="限度額"
@@ -196,8 +199,8 @@ onSwitchToNewApplication: () => void;
           <label className="block text-gray-600 text-sm mb-1">有効期限</label>
           <div className="flex items-center space-x-2">
             <EditableCell
-              value={status?.validFrom?.split('T')[0] || ''}
-              onChange={(value) => onChange('status', 'validFrom', value)}
+              value={medical?.validFrom?.split('T')[0] || ''}
+              onChange={(value) => onChange('medical', 'validFrom', value)}
               type="date"
               className="w-full"
               allowEmpty
@@ -205,8 +208,8 @@ onSwitchToNewApplication: () => void;
             />
             <span className="text-gray-500">～</span>
             <EditableCell
-              value={status?.validUntil?.split('T')[0] || ''}
-              onChange={(value) => onChange('status', 'validUntil', value)}
+              value={medical?.validUntil?.split('T')[0] || ''}
+              onChange={(value) => onChange('medical', 'validUntil', value)}
               type="date"
               className="w-full"
               allowEmpty
