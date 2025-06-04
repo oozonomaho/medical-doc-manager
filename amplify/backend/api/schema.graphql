@@ -1,0 +1,69 @@
+type Patient @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  name: String!
+  nameKana: String!
+  chartNumber: String!
+  insuranceType: InsuranceType!
+  selfSupportCertificate: SelfSupportCertificate!
+  disabilityCertificate: DisabilityCertificate!
+  pensionStatus: PensionStatus!
+  medicalCertificate: MedicalCertificate!
+  status: PatientStatus!
+  chartProcessing: ChartProcessing!
+  processingDate: AWSDateTime
+  notes: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type PatientLog @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  patientId: ID!
+  action: String!
+  userId: ID!
+  userName: String!
+  timestamp: AWSDateTime!
+  details: String
+}
+
+enum InsuranceType {
+  EMPLOYEE_SELF
+  EMPLOYEE_FAMILY
+  LIFE
+  NATIONAL
+}
+
+enum PatientStatus {
+  APPLYING
+  DOCS_HANDED
+  DOCS_RECEIVED
+  UPDATED
+  TRANSFERRED
+  STOPPED
+}
+
+type SelfSupportCertificate {
+  hasSupport: Boolean!
+  validUntil: AWSDateTime
+}
+
+type DisabilityCertificate {
+  hasDisability: Boolean!
+  grade: String
+}
+
+type PensionStatus {
+  hasPension: Boolean!
+  grade: String
+}
+
+type MedicalCertificate {
+  required: Boolean!
+  type: String
+  deadline: AWSDateTime
+}
+
+type ChartProcessing {
+  preProcessing: Boolean!
+  postProcessing: Boolean!
+}
