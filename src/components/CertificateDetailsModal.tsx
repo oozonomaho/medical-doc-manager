@@ -377,7 +377,7 @@ useEffect(() => {
 useEffect(() => {
   if (patient?.id) {
     const certs = medicalCertificates.filter(cert => cert.patientId === patient.id);
-    console.log(`📋 [${patient.name}]の診断書一覧:`, certs);
+    console.log(`📋 [${patient.name ?? ''}]の診断書一覧:`, certs);
   }
 }, [medicalCertificates, patient?.id]);
 
@@ -614,7 +614,7 @@ const handleTransitionConfirm = (type: 'selfSupport' | 'disability' | 'pension')
       <div className="bg-white rounded-lg p-6 max-w-7xl w-full">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold">
-            {normalizedPatient.name}さんの証明書情報
+            {normalizedPatient.name ?? '－'}さんの証明書情報
           </h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X className="h-6 w-6" />

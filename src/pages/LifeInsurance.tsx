@@ -62,8 +62,8 @@ const LifeInsurance: React.FC = () => {
 
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(patient => 
-        patient.name.toLowerCase().includes(searchLower) ||
+      filtered = filtered.filter(patient =>
+        (patient.name || '').toLowerCase().includes(searchLower) ||
         patient.nameKana.toLowerCase().includes(searchLower) ||
         patient.chartNumber.toLowerCase().includes(searchLower)
       );
@@ -244,7 +244,7 @@ const LifeInsurance: React.FC = () => {
                 </td>
                 <td className="px-3 py-2 w-40">
                   <div>
-                    <div>{patient.name}</div>
+                    <div>{patient.name ?? '－'}</div>
                     <div className="text-sm text-gray-500">{patient.nameKana}</div>
                   </div>
                 </td>

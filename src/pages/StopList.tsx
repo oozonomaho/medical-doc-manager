@@ -31,8 +31,8 @@ const StopList: React.FC = () => {
     if (!searchTerm) return stoppedPatients;
 
     const searchLower = searchTerm.toLowerCase();
-    return stoppedPatients.filter(patient => 
-      patient.name.toLowerCase().includes(searchLower) ||
+    return stoppedPatients.filter(patient =>
+      (patient.name || '').toLowerCase().includes(searchLower) ||
       patient.nameKana.toLowerCase().includes(searchLower) ||
       patient.chartNumber.toLowerCase().includes(searchLower)
     );
@@ -55,18 +55,20 @@ const StopList: React.FC = () => {
     }
   };
 
-  const handleCellChange = (patientId: string, field: string, value: string) => {
+  const handleCellChange = (patientId: string, field: string, value: string | null) => {
     const patient = stoppedPatients.find(p => p.id === patientId);
     if (!patient) return;
 
     const updatedPatient = { ...patient };
     switch (field) {
       case 'name':
+        updatedPatient[field] = value;
+        break;
       case 'nameKana':
       case 'chartNumber':
       case 'notes':
       case 'municipality':
-        updatedPatient[field] = value;
+        updatedPatient[field] = value ?? '';
         break;
       case 'insuranceType':
         updatedPatient.insuranceType = value as any;

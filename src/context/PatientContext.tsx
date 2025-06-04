@@ -124,7 +124,7 @@ const enriched = data.map((patient) => {
     pensionStatus: toStatus(pensionCert) ?? patient.pensionStatus,
   };
 
-  console.log(`🟨 enriched[${patient.name}]`, {
+  console.log(`🟨 enriched[${patient.name ?? ''}]`, {
     id: patient.id,
     自立支援: result.selfSupportMedicalCertificate,
     手帳: result.disabilityMedicalCertificate,
@@ -365,7 +365,7 @@ const isUpdate = latestCertificates.some(c =>
       year: now.getFullYear(),
       month: now.getMonth() + 1,
       insuranceType: patient.insuranceType,
-      patientName: patient.name,
+      patientName: patient.name || '',
       certificateFee: 0,
       certificateType: patient.medicalCertificate.type || '',
       municipality: '鹿児島市',
@@ -392,7 +392,7 @@ const isUpdate = latestCertificates.some(c =>
     const newClaims = patientsToMove.map(patient => ({
       id: `claim-${Date.now()}-${patient.id}`,
       patientId: patient.id,
-      patientName: patient.name,
+      patientName: patient.name || '',
       patientNameKana: patient.nameKana,
       chartNumber: patient.chartNumber,
       claimDate: now.toISOString().split('T')[0],

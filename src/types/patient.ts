@@ -16,7 +16,7 @@ export { Certificate as MedicalCertificate };
 
 export interface Patient {
   id: string;
-  name: string;
+  name: string | null;
   nameKana: string;
   chartNumber: string;
   insuranceType: InsuranceType;
