@@ -6,7 +6,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start:backend": "ts-node back-end/server.ts",
+    "migrate": "ts-node back-end/db.ts"
   },
   "dependencies": {
     "react": "^18.3.1",
