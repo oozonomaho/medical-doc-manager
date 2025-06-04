@@ -98,11 +98,30 @@ const enriched = data.map((patient) => {
   const getCert = (type: string) =>
     certs.find(cert => cert.patientId === patient.id && cert.type === type);
 
+  const selfCert = getCert('自立支援');
+  const disabilityCert = getCert('手帳');
+  const pensionCert = getCert('年金');
+
+  const toStatus = (cert: MedicalCertificate | undefined) =>
+    cert
+      ? {
+          applicationDate: cert.applicationDate,
+          completionDate: cert.completionDate,
+          startDate: cert.startDate,
+          validFrom: cert.validFrom,
+          validUntil: cert.validUntil,
+          status: cert.status as any,
+        }
+      : undefined;
+
   const result = {
     ...patient,
-    selfSupportMedicalCertificate: getCert('自立支援') ?? patient.selfSupportMedicalCertificate,
-    disabilityMedicalCertificate: getCert('手帳') ?? patient.disabilityMedicalCertificate,
-    pensionMedicalCertificate: getCert('年金') ?? patient.pensionMedicalCertificate,
+    selfSupportMedicalCertificate: selfCert ?? patient.selfSupportMedicalCertificate,
+    disabilityMedicalCertificate: disabilityCert ?? patient.disabilityMedicalCertificate,
+    pensionMedicalCertificate: pensionCert ?? patient.pensionMedicalCertificate,
+    selfSupportStatus: toStatus(selfCert) ?? patient.selfSupportStatus,
+    disabilityStatus: toStatus(disabilityCert) ?? patient.disabilityStatus,
+    pensionStatus: toStatus(pensionCert) ?? patient.pensionStatus,
   };
 
   console.log(`🟨 enriched[${patient.name}]`, {
