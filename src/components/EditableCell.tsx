@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 interface EditableCellProps {
-  value: string;
+  value: string | null;
   onChange: (value: string | null) => void;
   type?: 'text' | 'date' | 'select' | 'number';
   options?: string[];
@@ -24,7 +24,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   allowEmpty = true
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
+  const [editValue, setEditValue] = useState(value ?? '');
   const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
     }
   }, [isEditing]);
 
-  useEffect(() => setEditValue(value), [value]);
+  useEffect(() => setEditValue(value ?? ''), [value]);
 
   const handleClick = () => {
     setIsEditing(true);
@@ -69,7 +69,7 @@ const handleBlur = (
     }
     if (e.key === 'Escape') {
       setIsEditing(false);
-      setEditValue(value);
+      setEditValue(value ?? '');
     }
     if (e.key === 'Delete' || e.key === 'Backspace') {
       if (allowEmpty) {

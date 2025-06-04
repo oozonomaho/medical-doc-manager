@@ -65,8 +65,8 @@ const PendingClaims: React.FC = () => {
 
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(patient => 
-        patient.name.toLowerCase().includes(searchLower) ||
+      filtered = filtered.filter(patient =>
+        (patient.name || '').toLowerCase().includes(searchLower) ||
         patient.nameKana.toLowerCase().includes(searchLower) ||
         patient.chartNumber.toLowerCase().includes(searchLower)
       );
@@ -194,7 +194,7 @@ const PendingClaims: React.FC = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-start space-x-2">
                       <div>
-                        <div>{patient.name}</div>
+                        <div>{patient.name ?? '－'}</div>
                         <div className="text-sm text-gray-500">{patient.nameKana}</div>
                       </div>
                       <button

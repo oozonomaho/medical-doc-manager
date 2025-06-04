@@ -17,7 +17,7 @@ const PatientDetail: React.FC = () => {
                 <h2 className="text-lg font-semibold">基本情報</h2>
                 <div className="mt-2 space-y-2">
                   <p>患者ID: {patient.id}</p>
-                  <p>名前: {patient.name}</p>
+                  <p>名前: {patient.name ?? '－'}</p>
                   <p>ふりがな: {patient.nameKana}</p>
                   <p>カルテ番号: {patient.chartNumber}</p>
                 </div>

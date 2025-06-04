@@ -164,8 +164,8 @@ const PatientList: React.FC = () => {
 
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(patient => 
-        patient.name.toLowerCase().includes(searchLower) ||
+      filtered = filtered.filter(patient =>
+        (patient.name || '').toLowerCase().includes(searchLower) ||
         patient.nameKana.toLowerCase().includes(searchLower) ||
         patient.chartNumber.toLowerCase().includes(searchLower)
       );
@@ -190,8 +190,8 @@ const PatientList: React.FC = () => {
             compareB = b.chartNumber;
             break;
           case 'name':
-            compareA = a.name;
-            compareB = b.name;
+            compareA = a.name || '';
+            compareB = b.name || '';
             break;
           case 'nameKana':
             compareA = a.nameKana;
@@ -255,7 +255,7 @@ const PatientList: React.FC = () => {
     setInsuranceChangeData(null);
   };
 
-  const handleCellChange = (patientId: string, field: string, value: string) => {
+  const handleCellChange = (patientId: string, field: string, value: string | null) => {
     const patient = activePatients.find(p => p.id === patientId);
     if (!patient) return;
 
@@ -280,11 +280,13 @@ const PatientList: React.FC = () => {
 
     switch (field) {
       case 'name':
+        updatedPatient[field] = value;
+        break;
       case 'nameKana':
       case 'chartNumber':
       case 'notes':
       case 'municipality':
-        updatedPatient[field] = value;
+        updatedPatient[field] = value ?? '';
         break;
       case 'medicalType':
         updatedPatient.medicalCertificate.type = value;

@@ -34,7 +34,7 @@ const FileHistoryModal: React.FC<FileHistoryModalProps> = ({
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-xl relative">
         {/* ヘッダー */}
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">📁 診断書ファイル履歴（{patient.name}）</h2>
+          <h2 className="text-lg font-semibold">📁 診断書ファイル履歴（{patient.name ?? '－'}）</h2>
           <button onClick={onClose}>
             <X className="h-5 w-5 text-gray-600 hover:text-gray-800" />
           </button>

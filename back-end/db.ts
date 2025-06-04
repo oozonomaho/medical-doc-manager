@@ -16,11 +16,42 @@ if (!fs.existsSync(dataDir)) {
 // DB接続
 const db = new Database(dbPath);
 
+// ---- テーブルスキーマのマイグレーション ----
+const migratePatientsTable = () => {
+  const info = db.prepare("PRAGMA table_info(patients)").all();
+  const nameCol = info.find(col => col.name === 'name');
+  if (nameCol && nameCol.notnull === 1) {
+    console.log('🔄 Migrating patients table to allow NULL name');
+    const migrate = db.transaction(() => {
+      db.exec('PRAGMA foreign_keys=off;');
+      db.exec('ALTER TABLE patients RENAME TO patients_old;');
+      db.exec(`
+        CREATE TABLE patients (
+          id TEXT PRIMARY KEY,
+          name TEXT,
+          nameKana TEXT,
+          chartNumber TEXT,
+          insuranceType TEXT,
+          notes TEXT,
+          updatedAt TEXT
+        );
+      `);
+      db.exec(`
+        INSERT INTO patients (id, name, nameKana, chartNumber, insuranceType, notes, updatedAt)
+        SELECT id, name, nameKana, chartNumber, insuranceType, notes, updatedAt FROM patients_old;
+      `);
+      db.exec('DROP TABLE patients_old;');
+      db.exec('PRAGMA foreign_keys=on;');
+    });
+    migrate();
+  }
+};
+
 // patients テーブルがなければ作る（必要に応じて項目追加してOK）
 db.exec(`
   CREATE TABLE IF NOT EXISTS patients (
     id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
+    name TEXT,
     nameKana TEXT,
     chartNumber TEXT,
     insuranceType TEXT,
@@ -56,6 +87,8 @@ CREATE TABLE IF NOT EXISTS certificates (
 );
 
 `);
+// 既存データベースが古いスキーマの場合はマイグレーション
+migratePatientsTable();
 db.prepare(`
   CREATE TABLE IF NOT EXISTS life_insurance_records (
     id TEXT PRIMARY KEY,

@@ -29,7 +29,7 @@ const Archive: React.FC = () => {
             {archivedPatients.map((patient) => (
               <tr key={patient.id}>
                 <td className="px-6 py-4 whitespace-nowrap">{patient.chartNumber}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{patient.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{patient.name ?? '－'}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{patient.status}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{patient.updatedAt}</td>
               </tr>

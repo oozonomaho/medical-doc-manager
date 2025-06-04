@@ -353,8 +353,8 @@ const updateCertificateRow = (rowId: string, field: 'priority' | 'staff' | 'stat
 
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(row => 
-        row.patient.name.toLowerCase().includes(searchLower) ||
+      filtered = filtered.filter(row =>
+        (row.patient.name || '').toLowerCase().includes(searchLower) ||
         row.patient.nameKana.toLowerCase().includes(searchLower) ||
         row.patient.chartNumber.toLowerCase().includes(searchLower)
       );
@@ -704,7 +704,7 @@ const updateCertificateRow = (rowId: string, field: 'priority' | 'staff' | 'stat
                 <td className="px-6 py-4">
                   <div className="flex items-start space-x-2">
                     <div>
-                      <div>{row.patient.name}</div>
+                      <div>{row.patient.name ?? '－'}</div>
                       <div className="text-sm text-gray-500">{row.patient.nameKana}</div>
                     </div>
                     <button
