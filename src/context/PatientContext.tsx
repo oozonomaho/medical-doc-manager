@@ -59,8 +59,9 @@ interface PatientContextType {
 getCertificates: () => Promise<MedicalCertificate[]>;
  getCertificatesDirect: (patientId: string) => Promise<MedicalCertificate[]>; 
 createOrUpdateCertificate: (certificate: MedicalCertificate) => Promise<void>;
-updateCertificate: (id: string, certificate: Partial<MedicalCertificate>) => Promise<void>;
-deleteCertificate: (id: string) => Promise<void>;
+  updateCertificate: (id: string, certificate: Partial<MedicalCertificate>) => Promise<void>;
+  deleteCertificate: (id: string) => Promise<void>;
+  loadPatientsWithCertificates: () => Promise<void>;
 
 }
 
