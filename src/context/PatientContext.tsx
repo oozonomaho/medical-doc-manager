@@ -56,7 +56,7 @@ interface PatientContextType {
   updateLifeInsuranceRecordAPI: (id: string, updates: Partial<LifeInsuranceRecord>) => Promise<void>;
   deleteLifeInsuranceRecord: (id: string) => Promise<void>;
   medicalCertificates: MedicalCertificate[];
-getCertificates: () => Promise<void>;
+getCertificates: () => Promise<MedicalCertificate[]>;
  getCertificatesDirect: (patientId: string) => Promise<MedicalCertificate[]>; 
 createOrUpdateCertificate: (certificate: MedicalCertificate) => Promise<void>;
 updateCertificate: (id: string, certificate: Partial<MedicalCertificate>) => Promise<void>;
@@ -85,17 +85,17 @@ const [stoppedPatients, setStoppedPatients] = useState<Patient[]>([]);
   const loadPatientsWithCertificates = async () => {
     console.log('🔵 loadPatientsWithCertificates 呼び出し');
 
-  await getCertificates();
+  const certs = await getCertificates();
 
   const res = await fetch(`${API_BASE_URL}/patients`);
   const data: Patient[] = await res.json();
 
   console.log('🟦 DB患者データ取得:', data);
-  console.log('🟩 現在のmedicalCertificates:', medicalCertificates);
+  console.log('🟩 現在のmedicalCertificates:', certs);
 
 const enriched = data.map((patient) => { 
   const getCert = (type: string) =>
-    medicalCertificates.find(cert => cert.patientId === patient.id && cert.type === type);
+    certs.find(cert => cert.patientId === patient.id && cert.type === type);
 
   const result = {
     ...patient,
@@ -190,7 +190,7 @@ useEffect(() => {
   };
   
 
-const getCertificates = async (patientId?: string) => {
+const getCertificates = async (patientId?: string): Promise<MedicalCertificate[]> => {
   try {
     const url = patientId
       ? `${API_BASE_URL}/certificates?patientId=${patientId}`
@@ -201,9 +201,10 @@ const getCertificates = async (patientId?: string) => {
 
     console.log('🟥 certificates GET直後:', data);
     setMedicalCertificates(data); // フィルタ後でもOK、共通stateとして管理してるならこれでOK
-
+    return data;
   } catch (err) {
     console.error('診断書の取得に失敗しました', err);
+    return [];
   }
 };
 const getCertificatesDirect = async (patientId: string): Promise<MedicalCertificate[]> => {
