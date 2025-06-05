@@ -459,6 +459,9 @@ const handleDateChange = async (
   if (target === 'status') {
     (status as any)[field] = formatted;
     updatedPatient[statusKey] = status;
+    if (field === 'status') {
+      (cert as any).status = formatted;
+    }
   } else if (target === 'medical') {
     if (field === 'needsCertificate') {
       cert.needsCertificate = value === '要';
@@ -488,6 +491,7 @@ const handleDateChange = async (
     })(),
     needsCertificate: cert.needsCertificate,
     progress: cert.progress,
+    status: status?.status,
     sendDate: cert.sendDate,
     applicationDate: status?.applicationDate,
     completionDate: status?.completionDate,
@@ -511,6 +515,7 @@ const handleProgressChange = async (
   const updatedPatient = { ...normalizedPatient };
   const key = `${type}MedicalCertificate` as keyof Patient;
   const statusKey = `${type}Status` as keyof Patient;
+  const status = updatedPatient[statusKey] as CertificateStatus;
 
   const cert = updatedPatient[key];
 
@@ -560,6 +565,7 @@ if (!cert) {
     })(),
     needsCertificate: cert.needsCertificate,
     progress: cert.progress,
+    status: status?.status,
     sendDate: cert.sendDate,
     applicationDate: status?.applicationDate,
     completionDate: status?.completionDate,
