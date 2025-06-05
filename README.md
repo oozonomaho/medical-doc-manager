@@ -1,15 +1,30 @@
-# Medical Doc Manager
+React と TypeScript (Vite + Tailwind CSS) を使ったフロントエンドと、SQLite を利用する Express バックエンドで構成されたシンプルな医療文書管理アプリです。
 
-This project is a React frontend built with Vite.
+主な機能
+・患者情報の管理
 
-## Environment Variables
+・自立支援・障害者手帳・年金など各種医療証の管理
 
-Create a `.env` file in the project root. The frontend expects the following variable:
+・各月の診断書要作成患者の管理
 
-```
-VITE_API_BASE_URL=<URL of your API server>
-```
+・生活保護の請求状況の管理
 
-For local development it defaults to `http://localhost:3001`.
+・自立支援医療適用時の請求保留中患者の管理
 
+・保険変更患者の管理（自立支援医療変更届処理）
 
+・各患者に関連するファイルのアップロード・追跡
+
+・転院患者/更新停止患者の管理
+
+・申送り機能
+
+2025年4月ごろから本格的に取り組み始め、プログラミングの知識はほぼゼロから開始しました。学習を兼ねて開発しています。
+
+要修正点
+・保険/住所欄がdeleteキーによって削除できない
+・同一患者に対して複数の診断書が発生した場合、付随のデータが連動している点を独立させる
+・停止リストに移動する際に患者一覧から自動で削除されるように変更
+
+要追加機能
+・更新期限の一括入力
