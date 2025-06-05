@@ -35,4 +35,5 @@ React と TypeScript (Vite + Tailwind CSS) を使ったフロントエンドと�
 要追加機能
 
 ・更新期限の一括入力
+
 ・診断書管理タブ＞診断書の種類での絞込機能
