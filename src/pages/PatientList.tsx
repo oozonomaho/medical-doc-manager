@@ -95,11 +95,11 @@ const PatientList: React.FC = () => {
       nameKana: '',
       chartNumber: '',
       insuranceType: '' as any,
-      selfSupportCertificate: {
+      selfSupportStatus: {
         hasSupport: false,
         status: '未更新'
       },
-      disabilityCertificate: {
+      disabilityStatus: {
         hasDisability: false,
         status: '未更新'
       },
@@ -202,12 +202,12 @@ const PatientList: React.FC = () => {
             compareB = insuranceTypes[b.insuranceType];
             break;
           case 'medicalType':
-            compareA = getCertificateStatus(a.selfSupportCertificate);
-            compareB = getCertificateStatus(b.selfSupportCertificate);
+            compareA = getCertificateStatus(a.selfSupportStatus);
+            compareB = getCertificateStatus(b.selfSupportStatus);
             break;
           case 'medicalDeadline':
-            compareA = a.selfSupportCertificate?.validUntil;
-            compareB = b.selfSupportCertificate?.validUntil;
+            compareA = a.selfSupportStatus?.validUntil;
+            compareB = b.selfSupportStatus?.validUntil;
             break;
         }
 
@@ -497,8 +497,8 @@ const PatientList: React.FC = () => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {sortedPatients.map((patient) => {
-              const selfSupportStatus = getCertificateStatus(patient.selfSupportCertificate);
-              const disabilityStatus = getCertificateStatus(patient.disabilityCertificate);
+              const selfSupportStatus = getCertificateStatus(patient.selfSupportStatus);
+              const disabilityStatus = getCertificateStatus(patient.disabilityStatus);
               const pensionStatus = getCertificateStatus(patient.pensionStatus);
 
               return (
