@@ -220,7 +220,7 @@ const getCertificates = async (patientId?: string): Promise<MedicalCertificate[]
     const data = await res.json();
 
     console.log('🟥 certificates GET直後:', data);
-    setMedicalCertificates(data); // フィルタ後でもOK、共通stateとして管理してるならこれでOK
+    setMedicalCertificates(data); 
     return data;
   } catch (err) {
     console.error('診断書の取得に失敗しました', err);
@@ -283,7 +283,7 @@ const isUpdate = latestCertificates.some(c =>
     console.log(`✅ ${method} 成功:`, result);
     if (!result.success) throw new Error(result.error || '保存失敗');
 
-    await getCertificates(certificate.patientId); // stateに再反映
+    await getCertificates(certificate.patientId); 
   } catch (err) {
     console.error('❌ 診断書の保存/更新エラー:', err);
   }
@@ -301,7 +301,7 @@ const isUpdate = latestCertificates.some(c =>
   
       const result = await res.json();
       if (!result.success) throw new Error(result.error || '更新失敗');
-      await getCertificates(); // 更新後に再取得
+      await getCertificates(); 
     } catch (err) {
       console.error('診断書の更新エラー:', err);
     }
@@ -316,7 +316,7 @@ const isUpdate = latestCertificates.some(c =>
   
       const result = await res.json();
       if (!result.success) throw new Error(result.error || '削除失敗');
-      await getCertificates(); // 削除後に再取得
+      await getCertificates(); 
     } catch (err) {
       console.error('診断書の削除エラー:', err);
     }
@@ -333,10 +333,10 @@ const isUpdate = latestCertificates.some(c =>
       updatedAt: now
     }));
   
-    // APIに保存
+  
     updatedStoppedPatients.forEach(updatePatient);
   
-    // ローカル状態も更新
+  
     setStoppedPatients([...stoppedPatients, ...updatedStoppedPatients]);
     setActivePatients(activePatients.filter(p => !patientIds.includes(p.id)));
   };
@@ -375,7 +375,7 @@ const isUpdate = latestCertificates.some(c =>
       claimRecipient: '',
       createdAt: now.toISOString(),
       updatedAt: now.toISOString(),
-      claimStatus: false // ← 明示的に追加しとくとベター
+      claimStatus: false 
     }));
   
     // 保存処理（非同期）
@@ -435,29 +435,28 @@ const isUpdate = latestCertificates.some(c =>
         return;
       }
   
-      // 👇 ここでレスポンスを受け取って使うとGood！
+
       const saved = await res.json(); 
-     console.log('サーバから返ってきた値:', saved); // ← API側も res.json({ success: true, patient }) と返すようにしてね
+     console.log('サーバから返ってきた値:', saved); 
       const updatedPatient = saved.patient || updated;
   
 
-    // ✅ ローカル状態を更新！
 setPatients((prev) => {
   console.log('[updatePatient] setPatients関数開始 prev:', prev);
 
   if (prev.some((p) => p.id === updatedPatient.id)) {
-    // 上書き
+  
     const updated = prev.map((p) => (p.id === updatedPatient.id ? updatedPatient : p));
     console.log('[updatePatient] 上書きで更新:', updated);
     return updated;
   } else {
-    // 新規追加
+ 
     const appended = [...prev, updatedPatient];
     console.log('[updatePatient] 追加で更新:', appended);
     return appended;
   }
 });
-console.log('🟦 setPatients後のpatients:', patients); // ★追加（ただしuseStateの反映は非同期なので注意）
+console.log('🟦 setPatients後のpatients:', patients);
 setTimeout(() => console.log('🟪 patients最新:', patients), 200);
 
     setActivePatients((prev) =>
@@ -484,7 +483,7 @@ setTimeout(() => console.log('🟪 patients最新:', patients), 200);
   };
 
   const deletePatients = async (patientIds: string[]) => {
-    // サーバーに削除リクエストを送る
+   
     for (const id of patientIds) {
       try {
         const res = await fetch(`${API_BASE_URL}/patients/${id}`, {
@@ -498,8 +497,7 @@ setTimeout(() => console.log('🟪 patients最新:', patients), 200);
         console.error(`患者 ${id} の通信エラー:`, err);
       }
     }
-  
-    // ローカル状態も更新
+
     setActivePatients(patients => patients.filter(p => !patientIds.includes(p.id)));
   };
   
