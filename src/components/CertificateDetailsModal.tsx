@@ -371,7 +371,7 @@ const { getCertificates, medicalCertificates } = usePatients();
 
 useEffect(() => {
   if (patient?.id) {
-    getCertificates(patient.id); // この時点でmedicalCertificatesに患者の診断書が入る
+    getCertificates(patient.id); 
   }
 }, [patient?.id]);
 useEffect(() => {
@@ -503,7 +503,7 @@ const handleDateChange = async (
   await createOrUpdateCertificate(medicalCert);
   console.log('[CertificateDetailsModal] createOrUpdateCertificate完了');
 
-  await loadPatientsWithCertificates(); // ←これで画面にも反映されるようになる！
+  await loadPatientsWithCertificates(); 
 };
 
 
@@ -530,11 +530,11 @@ if (!cert) {
       if (type === 'disability') return '手帳';
       return '年金';
     })(),
-    progress: { [field]: true }, // ← 今押したやつは true にしておく
+    progress: { [field]: true },
     needsCertificate: false,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
-  } as any; // MedicalCertificate 型に合わせてキャスト
+  } as any;
   
 
   // 再取得
@@ -575,7 +575,7 @@ if (!cert) {
 console.log('💡createOrUpdateCertificate呼び出し直前:', medicalCert);
   await createOrUpdateCertificate(medicalCert);
   console.log('[CertificateDetailsModal] createOrUpdateCertificate完了');
-    await loadPatientsWithCertificates(); // ←追加！！
+    await loadPatientsWithCertificates(); 
 };
 
 
