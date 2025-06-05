@@ -34,7 +34,7 @@ React と TypeScript (Vite + Tailwind CSS) を使ったフロントエンドと�
 
 ・証明書モーダルUI＞新規と更新でサイズを統一
 
-・
+・停止リストUI＞患者一覧と統一
 
 
 要追加機能
