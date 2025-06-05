@@ -5,7 +5,7 @@ import db from '../db';
 const router = express.Router();
 
 router.post('/', (req, res) => {
-  console.log('🟡 POST /certificates ルート到達!', req.body); // ここ！
+  console.log('🟡 POST /certificates ルート到達!', req.body); 
   const cert = req.body;
 
   const stmt = db.prepare(`
@@ -52,7 +52,7 @@ router.post('/', (req, res) => {
   ) {
     console.warn(`🚨 不正な型: ${key} =`, val, `(typeof ${typeof val})`);
   }
-} // ← ここで確認できる！
+}
 
     stmt.run(data);
     res.json({ success: true });
