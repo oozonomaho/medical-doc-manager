@@ -444,18 +444,26 @@ const handleDateChange = async (
     cert = updatedPatient[certKey] as MedicalCertificate;
   }
 
-  const formatted = value ? `${value}T00:00:00Z` : undefined;
+  const dateFields = [
+    'applicationDate',
+    'completionDate',
+    'startDate',
+    'initialStartDate',
+    'validFrom',
+    'validUntil',
+    'sendDate'
+  ];
+  const isDateField = dateFields.includes(field);
+  const formatted = value && isDateField ? `${value}T00:00:00Z` : value ?? undefined;
 
   if (target === 'status') {
-    (status as any)[field] = formatted ?? value ?? undefined;
+    (status as any)[field] = formatted;
     updatedPatient[statusKey] = status;
   } else if (target === 'medical') {
     if (field === 'needsCertificate') {
       cert.needsCertificate = value === '要';
-    } else if (field === 'startDate') {
-      cert.startDate = formatted ?? value ?? undefined;
     } else {
-      (cert as any)[field] = formatted ?? value ?? undefined;
+      (cert as any)[field] = formatted;
     }
 
     cert.updatedAt = new Date().toISOString();
