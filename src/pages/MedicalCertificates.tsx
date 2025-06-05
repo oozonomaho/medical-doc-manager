@@ -733,7 +733,7 @@ const updateCertificateRow = (rowId: string, field: 'priority' | 'staff' | 'stat
                   <span>{row.type}</span>
                 </td>
                 <td className="px-6 py-4">
-                  {row.renewalType === '新規' && row.patient[`${row.type === '自立支援' ? 'selfSupportCertificate' : row.type === '手帳' ? 'disabilityCertificate' : 'pensionStatus'}`].progress?.requestSent
+                  {row.renewalType === '新規' && row.patient[`${row.type === '自立支援' ? 'selfSupportStatus' : row.type === '手帳' ? 'disabilityStatus' : 'pensionStatus'}`].progress?.requestSent
                     ? (row.applicationDate
                         ? new Date(row.applicationDate).toLocaleDateString('ja-JP')
                         : '-')

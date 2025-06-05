@@ -14,11 +14,11 @@ const NewPatientModal: React.FC<NewPatientModalProps> = ({ isOpen, onClose, onSu
     nameKana: '',
     chartNumber: '',
     insuranceType: 'EMPLOYEE_SELF',
-    selfSupportCertificate: {
+    selfSupportStatus: {
       hasSupport: false,
       validUntil: ''
     },
-    disabilityCertificate: {
+    disabilityStatus: {
       hasDisability: false,
       grade: '',
       validUntil: ''
@@ -123,28 +123,28 @@ const NewPatientModal: React.FC<NewPatientModalProps> = ({ isOpen, onClose, onSu
                     <input
                       type="checkbox"
                       className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      checked={formData.selfSupportCertificate.hasSupport}
+                      checked={formData.selfSupportStatus.hasSupport}
                       onChange={(e) => setFormData({
                         ...formData,
-                        selfSupportCertificate: {
-                          ...formData.selfSupportCertificate,
+                        selfSupportStatus: {
+                          ...formData.selfSupportStatus,
                           hasSupport: e.target.checked
                         }
                       })}
                     />
                     <span className="ml-2 font-medium">自立支援医療</span>
                   </label>
-                  {formData.selfSupportCertificate.hasSupport && (
+                  {formData.selfSupportStatus.hasSupport && (
                     <div>
                       <label className="block text-sm text-gray-700">有効期限</label>
                       <input
                         type="date"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        value={formData.selfSupportCertificate.validUntil}
+                        value={formData.selfSupportStatus.validUntil}
                         onChange={(e) => setFormData({
                           ...formData,
-                          selfSupportCertificate: {
-                            ...formData.selfSupportCertificate,
+                          selfSupportStatus: {
+                            ...formData.selfSupportStatus,
                             validUntil: e.target.value
                           }
                         })}
@@ -159,18 +159,18 @@ const NewPatientModal: React.FC<NewPatientModalProps> = ({ isOpen, onClose, onSu
                     <input
                       type="checkbox"
                       className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      checked={formData.disabilityCertificate.hasDisability}
+                      checked={formData.disabilityStatus.hasDisability}
                       onChange={(e) => setFormData({
                         ...formData,
-                        disabilityCertificate: {
-                          ...formData.disabilityCertificate,
+                        disabilityStatus: {
+                          ...formData.disabilityStatus,
                           hasDisability: e.target.checked
                         }
                       })}
                     />
                     <span className="ml-2 font-medium">障害者手帳</span>
                   </label>
-                  {formData.disabilityCertificate.hasDisability && (
+                  {formData.disabilityStatus.hasDisability && (
                     <div className="space-y-2">
                       <div>
                         <label className="block text-sm text-gray-700">等級</label>
@@ -178,11 +178,11 @@ const NewPatientModal: React.FC<NewPatientModalProps> = ({ isOpen, onClose, onSu
                           type="text"
                           placeholder="例: 2級"
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                          value={formData.disabilityCertificate.grade}
+                          value={formData.disabilityStatus.grade}
                           onChange={(e) => setFormData({
                             ...formData,
-                            disabilityCertificate: {
-                              ...formData.disabilityCertificate,
+                            disabilityStatus: {
+                              ...formData.disabilityStatus,
                               grade: e.target.value
                             }
                           })}
@@ -193,11 +193,11 @@ const NewPatientModal: React.FC<NewPatientModalProps> = ({ isOpen, onClose, onSu
                         <input
                           type="date"
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                          value={formData.disabilityCertificate.validUntil}
+                          value={formData.disabilityStatus.validUntil}
                           onChange={(e) => setFormData({
                             ...formData,
-                            disabilityCertificate: {
-                              ...formData.disabilityCertificate,
+                            disabilityStatus: {
+                              ...formData.disabilityStatus,
                               validUntil: e.target.value
                             }
                           })}

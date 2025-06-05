@@ -224,12 +224,12 @@ const StopList: React.FC = () => {
                 </td>
                 <td className="px-3 py-4">
                   <div className="text-sm">
-                    {getCertificateStatus(patient.selfSupportCertificate)}
+                    {getCertificateStatus(patient.selfSupportStatus)}
                   </div>
                 </td>
                 <td className="px-3 py-4">
                   <div className="text-sm">
-                    {getCertificateStatus(patient.disabilityCertificate)}
+                    {getCertificateStatus(patient.disabilityStatus)}
                   </div>
                 </td>
                 <td className="px-3 py-4">

@@ -8,7 +8,7 @@ export const samplePatients: Patient[] = [
     nameKana: 'ヤマダ タロウ',
     chartNumber: 'CH001',
     insuranceType: InsuranceType.EMPLOYEE_SELF,
-    selfSupportCertificate: {
+    selfSupportStatus: {
       hasSupport: true,
       validUntil: '2025-03-31T00:00:00Z',
       initialStartDate: '2023-04-01T00:00:00Z',
@@ -26,7 +26,7 @@ export const samplePatients: Patient[] = [
         requestSent: true
       }
     },
-    disabilityCertificate: {
+    disabilityStatus: {
       hasDisability: true,
       grade: '2級',
       validUntil: '2025-03-31T00:00:00Z',
@@ -97,7 +97,7 @@ export const samplePatients: Patient[] = [
     nameKana: 'スズキ ハナコ',
     chartNumber: 'CH002',
     insuranceType: InsuranceType.EMPLOYEE_FAMILY,
-    selfSupportCertificate: {
+    selfSupportStatus: {
       hasSupport: false,
       status: 'ACTIVE',
       needsCertificate: false,
@@ -105,7 +105,7 @@ export const samplePatients: Patient[] = [
         requestSent: false
       }
     },
-    disabilityCertificate: {
+    disabilityStatus: {
       hasDisability: true,
       grade: '1級',
       validUntil: '2024-09-30T00:00:00Z',
@@ -155,7 +155,7 @@ export const samplePatients: Patient[] = [
     nameKana: 'サトウ イチロウ',
     chartNumber: 'CH003',
     insuranceType: InsuranceType.LIFE,
-    selfSupportCertificate: {
+    selfSupportStatus: {
       hasSupport: true,
       validUntil: '2024-12-31T00:00:00Z',
       initialStartDate: '2022-01-01T00:00:00Z',
@@ -173,7 +173,7 @@ export const samplePatients: Patient[] = [
         requestSent: true
       }
     },
-    disabilityCertificate: {
+    disabilityStatus: {
       hasDisability: true,
       grade: '3級',
       validUntil: '2024-12-31T00:00:00Z',
